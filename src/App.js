@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { CardList } from "./components/card-list/card-list.component.jsx";
 
 
 class App extends Component {
@@ -8,29 +8,28 @@ class App extends Component {
     super();
 
     this.state = {
-      players: [
-        {
-          name: "Kevin De Bruyne",
-          id: "asdf3f"
-        },
-        {
-          name: "Sergio Aguero",
-          id: "asdf4"
-        },
-        {
-          name: "Raheem Sterling",
-          id: "a34ffs"
-        }
-      ]
+      players: [],
+      searchField: ""
     }
   }
 
+  // Component Did Mount available when React renders to Virtual DOM
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/users")   // fetch example api response 
+    .then(response => response.json())                    // convert response to json
+    .then(users => this.setState({ players: users }));    // set the state to the users in the response
+  }
+
+  // Render method is available through extending into Component
   render() {
     return (
       <div className="App">
-        {
-          this.state.players.map(player => <h1 key={player.id}> {player.name} </h1>)
-        }
+        <input 
+          type="search" 
+          placeholder="search players" 
+          onChange={e => 
+            this.setState({ searchField: e.target.value }, () => console.log(this.state))}/>
+        <CardList players = {this.state.players} />
       </div>
     );
   }
