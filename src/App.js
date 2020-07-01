@@ -22,14 +22,27 @@ class App extends Component {
 
   // Render method is available through extending into Component
   render() {
+    // Destructuring
+    // Equivalent to two separate const declarations, just quicker
+    const { players, searchField } = this.state;
+
+    const filteredPlayers = players.filter(player => 
+      player.name.toLowerCase().includes(searchField.toLowerCase())
+    )
     return (
       <div className="App">
         <input 
           type="search" 
           placeholder="search players" 
-          onChange={e => 
-            this.setState({ searchField: e.target.value }, () => console.log(this.state))}/>
-        <CardList players = {this.state.players} />
+          // Synthetic event to detect when an action occurs on the DOM
+          // Camel Case indicates this is a React method, not pure HTML
+          onChange={e => {
+            this.setState({ searchField: e.target.value }, () => 
+              console.log(this.state)
+            );
+          }}
+        />
+        <CardList players = {filteredPlayers} />
       </div>
     );
   }
