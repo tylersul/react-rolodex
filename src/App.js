@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { CardList } from "./components/card-list/card-list.component.jsx";
+import { SearchBox } from "./components/search-box/search-box.component.jsx";
 
 
 class App extends Component {
@@ -31,12 +32,11 @@ class App extends Component {
     )
     return (
       <div className="App">
-        <input 
-          type="search" 
-          placeholder="search players" 
-          // Synthetic event to detect when an action occurs on the DOM
+        <SearchBox 
+          placeholder="search players"
+          handleChange={e => {
+                      // Synthetic event to detect when an action occurs on the DOM
           // Camel Case indicates this is a React method, not pure HTML
-          onChange={e => {
             this.setState({ searchField: e.target.value }, () => 
               console.log(this.state)
             );
