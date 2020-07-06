@@ -8,6 +8,7 @@ class App extends Component {
   constructor() {
     super();
 
+    // "This" is a special keyword in JS that reference context in which it is invoked
     this.state = {
       players: [],
       searchField: ""
